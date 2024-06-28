@@ -1,0 +1,50 @@
+.fileUploader {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 40px auto;
+  width: 960px;
+  height: 560px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.3s ease, transform 0.7s ease;
+  overflow: hidden;
+}
+
+.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.uploaderInput {
+  display: none;
+}
+
+.fileList {
+  position: absolute;
+  top: 0;
+  right: -410px;
+  width: 40%;
+  height: 528px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  opacity: 0;
+  transition: right 0.4s ease, opacity 0.4s ease;
+}
+
+.fileList h4 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.show {
+  right: 0; /* Görünür olduğunda sağa hizala */
+  opacity: 1;
+}
+
+.fileUploader .fileList.show ~ .dropzone {
+  flex-grow: 0.5; /* Dropzone daralacak */
+}

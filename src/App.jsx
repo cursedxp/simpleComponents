@@ -1,4 +1,4 @@
-import FileUploader from "./components/fileUploader";
+import FileUploader from "./components/fileUploader/fileUploader";
 
 function App() {
   return (

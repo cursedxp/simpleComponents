@@ -1,4 +1,4 @@
-import style from "./dropZone.module.css";
+import style from "./dropZone.module.scss";
 import PropTypes from "prop-types";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/outline";
 

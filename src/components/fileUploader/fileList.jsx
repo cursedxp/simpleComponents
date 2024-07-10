@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import style from "./fileList.module.css";
+import style from "./fileList.module.scss";
 import { StarIcon } from "@heroicons/react/24/solid";
 
 export default function FileList({ files, className }) {

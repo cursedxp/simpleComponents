@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useRef, useState, useEffect, useCallback } from "react";
 import Dropzone from "./dropZone";
-import style from "./fileUploader.module.css";
+import style from "./fileUploader.module.scss";
 import FileList from "./fileList";
 
 export default function FileUploader({ accept = "*/*" }) {

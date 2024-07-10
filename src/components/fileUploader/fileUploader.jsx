@@ -9,6 +9,7 @@ export default function FileUploader({ accept = "*/*" }) {
   const [files, setFiles] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [showList, setShowList] = useState(false);
+  const [previews, setPreviews] = useState([]);
 
   useEffect(() => {
     setLoaded(true);
@@ -22,11 +23,24 @@ export default function FileUploader({ accept = "*/*" }) {
     }
   }, [files]);
 
-  const handleDrop = useCallback((event) => {
-    event.preventDefault();
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
+  const cretePreviews = useCallback((files) => {
+    return files.map((file) => ({
+      name: file.name,
+      size: file.size,
+      preview: URL.createObjectURL(file),
+    }));
   }, []);
+
+  const handleDrop = useCallback(
+    (event) => {
+      event.preventDefault();
+      const droppedFiles = Array.from(event.dataTransfer.files);
+      const filesWithPreview = cretePreviews(droppedFiles);
+      setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
+      setPreviews((prevPreviews) => [...prevPreviews, ...filesWithPreview]);
+    },
+    [cretePreviews]
+  );
 
   const handleDragOver = useCallback((event) => {
     event.preventDefault();
@@ -36,9 +50,19 @@ export default function FileUploader({ accept = "*/*" }) {
     fileInput.current.click();
   }, []);
 
-  const handleFileChange = useCallback((event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+  const handleFileChange = useCallback(
+    (event) => {
+      const selectedFiles = Array.from(event.target.files);
+      const filesWithPreview = cretePreviews(selectedFiles);
+      setPreviews((prevPreviews) => [...prevPreviews, ...filesWithPreview]);
+      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    },
+    [cretePreviews]
+  );
+
+  const removeFile = useCallback((index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    setPreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
   }, []);
 
   return (
@@ -51,7 +75,8 @@ export default function FileUploader({ accept = "*/*" }) {
         showList={showList}
       />
       <FileList
-        files={files}
+        details={previews}
+        removeFile={removeFile}
         className={`${style.fileList} ${showList ? style.show : ""}`}
       />
       <input

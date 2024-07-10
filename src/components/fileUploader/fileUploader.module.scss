@@ -32,12 +32,7 @@
     border-radius: 16px;
     opacity: 0;
     transition: right 0.4s ease, opacity 0.4s ease;
-
-    h4 {
-      font-size: 32px;
-      font-weight: 700;
-    }
-
+    overflow: scroll;
     &.show {
       right: 0;
       opacity: 1;

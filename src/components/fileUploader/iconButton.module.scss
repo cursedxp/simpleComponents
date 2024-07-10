@@ -1,0 +1,14 @@
+.wrapper {
+  padding: 8px;
+  border-radius: 100%;
+  background: #d0d0d096;
+  height: 24px;
+  width: 24px;
+  margin-left: auto;
+  cursor: pointer;
+  .icon {
+    color: hsl(0, 0%, 0%);
+    height: 24px;
+    width: 24px;
+  }
+}
